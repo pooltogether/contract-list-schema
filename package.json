@@ -36,16 +36,16 @@
     "arrowParens": "always",
     "trailingComma": "none"
   },
-  "name": "v4-pool-data",
+  "name": "v4-pool-data-schema",
   "author": "PoolTogether Inc.",
-  "module": "dist/v4-pool-data.esm.js",
+  "module": "dist/v4-pool-data-schema.esm.js",
   "size-limit": [
     {
-      "path": "dist/v4-pool-data.cjs.production.min.js",
+      "path": "dist/v4-pool-data-schema.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/v4-pool-data.esm.js",
+      "path": "dist/v4-pool-data-schema.esm.js",
       "limit": "10 KB"
     }
   ],

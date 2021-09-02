@@ -1,7 +1,7 @@
-# `v4-pool-data`
+# `v4-pool-data-schema`
 
-[![Tests](https://github.com/pooltogether/v4-pool-data/workflows/Tests/badge.svg)](https://github.com/pooltogether/v4-pool-data/actions?query=workflow%3ATests)
-[![npm](https://img.shields.io/npm/v/@pooltogether/v4-pool-data)](https://unpkg.com/@pooltogether/v4-pool-data@latest/)
+[![Tests](https://github.com/pooltogether/v4-pool-data-schema/workflows/Tests/badge.svg)](https://github.com/pooltogether/v4-pool-data-schema/actions?query=workflow%3ATests)
+[![npm](https://img.shields.io/npm/v/@pooltogether/v4-pool-data-schema)](https://unpkg.com/@pooltogether/v4-pool-data-schema@latest/)
 
 A package for maintaining protocol deployments & ABIs.
 
