@@ -1,0 +1,273 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pooltogether.com/pooltogether-v4.schema.json",
+  "title": "Pooltogether v4",
+  "description": "Schema for a Linked Prize Pool",
+  "definitions": {
+    "Version": {
+      "type": "object",
+      "description": "The version of the Linked Prize Pool, used in change detection",
+      "examples": [
+        {
+          "major": 1,
+          "minor": 0,
+          "patch": 0
+        }
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "major": {
+          "type": "integer",
+          "description": "The major version of the Linked Prize Pool. Must be incremented when Prize Pools are removed from the Linked Prize Pool or contract addresses are changed.",
+          "minimum": 0,
+          "examples": [1, 2]
+        },
+        "minor": {
+          "type": "integer",
+          "description": "The minor version of the Linked Prize Pool. Must be incremented when new Prize Pools, Faucets or Claimable Draws are added to the Linked Prize Pool.",
+          "minimum": 0,
+          "examples": [0, 1]
+        },
+        "patch": {
+          "type": "integer",
+          "description": "The patch version of the Linked Prize Pool. Must be incremented for bug fixes in the Linked Prize Pool.",
+          "minimum": 0,
+          "examples": [0, 1]
+        }
+      },
+      "required": ["major", "minor", "patch"]
+    },
+    "TagIdentifier": {
+      "type": "string",
+      "description": "The unique identifier of a tag",
+      "minLength": 1,
+      "maxLength": 10,
+      "pattern": "^[\\w]+$",
+      "examples": ["factory", "unlinked"]
+    },
+    "TagDefinition": {
+      "type": "object",
+      "description": "Definition of a tag that can be associated with a contract via its identifier",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the tag",
+          "pattern": "^[ \\w]+$",
+          "minLength": 1,
+          "maxLength": 20
+        },
+        "description": {
+          "type": "string",
+          "description": "A user-friendly description of the tag",
+          "pattern": "^[ \\w\\.,:]+$",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      },
+      "required": ["name", "description"],
+      "examples": [
+        {
+          "name": "Factory",
+          "description": "A contract that creates other contracts"
+        }
+      ]
+    },
+    "ExtensionIdentifier": {
+      "type": "string",
+      "description": "The name of a contract extension property",
+      "minLength": 1,
+      "maxLength": 30,
+      "pattern": "^[\\w]+$",
+      "examples": ["factory_output", "is_linked"]
+    },
+    "ExtensionValue": {
+      "anyOf": [
+        { "$ref": "#/definitions/ABIIdentifier" },
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 42,
+          "examples": ["#00000"]
+        },
+        {
+          "type": "boolean",
+          "examples": [true]
+        },
+        {
+          "type": "number",
+          "examples": [15]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ABIIdentifier": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "$ref": "#/definitions/Version"
+        },
+        "type": {
+          "$ref": "#/definitions/PoolTogetherContracts"
+        }
+      },
+      "required": ["version", "type"],
+      "examples": [
+        {
+          "version": "1.0.0",
+          "type": "PRIZE_POOL"
+        }
+      ]
+    },
+    "ABI": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "PoolTogetherContracts": {
+      "type": "string",
+      "description": "The PoolTogether contracts that make up a Prize Pool",
+      "enum": [
+        "PRIZE_POOL",
+        "PRIZE_SPLIT_STRATEGY",
+        "TICKET",
+        "PRIZE_RESERVE",
+        "DRAW_CALCULATOR",
+        "DRAW_CALCULATOR_MANAGER",
+        "DRAW_CALCULATOR_FACTORY",
+        "CLAIMABLE_DRAW",
+        "DRAW_HISTORY",
+        "DRAW_BEACON"
+      ]
+    },
+    "ContractIdentifier": {
+      "type": "object",
+      "description": "The unique identifier for a contract",
+      "properties": {
+        "chainId": {
+          "type": "integer",
+          "description": "The chain ID of the Ethereum network where this contract is deployed",
+          "minimum": 1,
+          "examples": [1, 42]
+        },
+        "address": {
+          "type": "string",
+          "description": "The checksummed address of the contract on the specified chain ID",
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "examples": [
+          {
+            "chainId": 1,
+            "address": "0xde9ec95d7708B8319CCca4b8BC92c0a3B70bf416"
+          }
+        ]
+      },
+      "required": ["chainId", "address"]
+    },
+    "ContractMetadata": {
+      "type": "object",
+      "description": "Data required to interact with and describe a contract.",
+      "properties": {
+        "abi": {
+          "$ref": "#/definitions/ABIIdentifier"
+        },
+        "tags": {
+          "type": "array",
+          "description": "An array of tag identifiers associated with the contract; tags are defined at the Prize Pool level",
+          "items": {
+            "$ref": "#/definitions/TagIdentifier"
+          }
+        },
+        "extensions": {
+          "type": "object",
+          "description": "An object containing any arbitrary metadata",
+          "propertyNames": {
+            "$ref": "#/definitions/ExtensionIdentifier"
+          },
+          "additionalProperties": {
+            "$ref": "#/definitions/ExtensionValue"
+          },
+          "maxProperties": 10,
+          "examples": [
+            {
+              "is_factory": true,
+              "factory_output": {
+                "$ref": "#/definitions/ABIIdentifier"
+              }
+            }
+          ]
+        }
+      },
+      "required": ["abi"]
+    },
+    "Contract": {
+      "allOf": [
+        { "$ref": "#/definitions/ContractIdentifier" },
+        { "$ref": "#/definitions/ContractMetadata" }
+      ]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the Linked Prize Pool",
+      "minLength": 1,
+      "maxLength": 20,
+      "pattern": "^[\\w ]+$",
+      "examples": ["PoolTogether Tsunami Prize Pool"]
+    },
+    "version": {
+      "$ref": "#/definitions/Version"
+    },
+    "tags": {
+      "type": "object",
+      "description": "A mapping of tag identifiers to their name and description",
+      "propertyNames": {
+        "$ref": "#/definitions/TagIdentifier"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/TagDefinition"
+      },
+      "maxProperties": 20,
+      "examples": [
+        {
+          "stablecoin": {
+            "name": "Stablecoin",
+            "description": "A token with value pegged to another asset"
+          }
+        }
+      ]
+    },
+    "abis": {
+      "type": "array",
+      "description": "The ABIs relevant to this Linked Prize Pool",
+      "items": {
+        "type": "object",
+        "properties": {
+          "abi": {
+            "$ref": "#/definitions/ABI"
+          },
+          "additionalProperties": {
+            "$ref": "#/definitions/ABIIdentifier"
+          }
+        }
+      },
+      "minItems": 1,
+      "maxItems": 10000
+    },
+    "contracts": {
+      "type": "array",
+      "description": "The contracts that make up this Linked Prize Pool",
+      "items": {
+        "$ref": "#/definitions/Contract"
+      },
+      "minItems": 10
+    }
+  },
+  "required": ["name", "version", "tags", "abis", "contracts"]
+}
