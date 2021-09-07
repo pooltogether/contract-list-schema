@@ -11,22 +11,9 @@ export interface Tags {
   }
 }
 
-export enum PoolTogetherContracts {
-  'PRIZE_POOL',
-  'PRIZE_SPLIT_STRATEGY',
-  'TICKET',
-  'PRIZE_RESERVE',
-  'DRAW_CALCULATOR',
-  'DRAW_CALCULATOR_MANAGER',
-  'DRAW_CALCULATOR_FACTORY',
-  'CLAIMABLE_DRAW',
-  'DRAW_HISTORY',
-  'DRAW_BEACON'
-}
-
 export interface ABIIdentifier {
   readonly version: string
-  readonly type: PoolTogetherContracts
+  readonly type: string
 }
 
 export interface ContractIdentifier {

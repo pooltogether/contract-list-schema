@@ -129,19 +129,7 @@
     },
     "PoolTogetherContracts": {
       "type": "string",
-      "description": "The PoolTogether contracts that make up a Prize Pool",
-      "enum": [
-        "PRIZE_POOL",
-        "PRIZE_SPLIT_STRATEGY",
-        "TICKET",
-        "PRIZE_RESERVE",
-        "DRAW_CALCULATOR",
-        "DRAW_CALCULATOR_MANAGER",
-        "DRAW_CALCULATOR_FACTORY",
-        "CLAIMABLE_DRAW",
-        "DRAW_HISTORY",
-        "DRAW_BEACON"
-      ]
+      "description": "The PoolTogether contracts that make up a Prize Pool"
     },
     "ContractIdentifier": {
       "type": "object",
@@ -196,6 +184,11 @@
               "is_factory": true,
               "factory_output": {
                 "$ref": "#/definitions/ABIIdentifier"
+              }
+            },
+            {
+              "prizePool": {
+                "$ref": "#/definitions/ContractIdentifier"
               }
             }
           ]
