@@ -1,4 +1,4 @@
-import schema from './v4-pool-data-schema.schema.json'
+import schema from './contract-list.schema.json'
 
 export * from './types'
 

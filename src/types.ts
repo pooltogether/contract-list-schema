@@ -21,8 +21,7 @@ export interface ContractIdentifier {
   readonly address: string
 }
 
-export interface ContractMetadata {
-  readonly abi: ABIIdentifier
+export interface ContractMetadata extends ABIIdentifier {
   readonly tags?: string[]
   readonly extensions?: {
     readonly [key: string]: ABIIdentifier | string | number | boolean | null
