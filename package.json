@@ -16,11 +16,10 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "prepublishOnly": "yarn build",
     "postbuild": "cp src/contract-list.schema.json dist/contract-list.schema.json",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build",
+    "prepare": "yarn build",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
