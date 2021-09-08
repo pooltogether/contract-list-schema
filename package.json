@@ -1,4 +1,7 @@
 {
+  "name": "@pooltogether/contract-list-schema",
+  "author": "PoolTogether Inc.",
+  "module": "dist/contract-list-schema.esm.js",
   "version": "0.1.0",
   "license": "MIT",
   "main": "dist/index.js",
@@ -38,9 +41,6 @@
     "arrowParens": "always",
     "trailingComma": "none"
   },
-  "name": "contract-list-schema",
-  "author": "PoolTogether Inc.",
-  "module": "dist/contract-list-schema.esm.js",
   "size-limit": [
     {
       "path": "dist/contract-list-schema.cjs.production.min.js",
