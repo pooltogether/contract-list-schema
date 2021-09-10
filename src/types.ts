@@ -25,7 +25,7 @@ export interface Contract extends ABIIdentifier, ContractIdentifier {
   readonly abi: object[]
   readonly tags?: string[]
   readonly extensions?: {
-    readonly [key: string]: ContractIdentifier | ABIIdentifier | string | number | boolean | null
+    readonly [key: string]: any
   }
 }
 

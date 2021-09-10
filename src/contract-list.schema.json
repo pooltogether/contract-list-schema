@@ -81,29 +81,7 @@
       "pattern": "^[\\w]+$",
       "examples": ["factory_output", "is_linked"]
     },
-    "ExtensionValue": {
-      "anyOf": [
-        { "$ref": "#/definitions/ContractIdentifier" },
-        { "$ref": "#/definitions/ABIIdentifier" },
-        {
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 42,
-          "examples": ["#00000"]
-        },
-        {
-          "type": "boolean",
-          "examples": [true]
-        },
-        {
-          "type": "number",
-          "examples": [15]
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
+    "ExtensionValue": {},
     "ABIIdentifier": {
       "type": "object",
       "properties": {
