@@ -12,7 +12,7 @@ export interface Tags {
 }
 
 export interface ABIIdentifier {
-  readonly version: string
+  readonly version: Version
   readonly type: string
 }
 
